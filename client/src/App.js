@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react';
 import Axios from 'axios';
 import './App.css';
 import {v4 as uuidv4} from 'uuid';
+import TaskList from './Components/TaskList'
 
 function App() {
   const [taskList,setTaskList] = useState([]);
@@ -10,6 +11,11 @@ function App() {
   const [username,setUsername] = useState('');
   const [idDisplay,setIdDisplay] = useState('');
   const [taskToLoad,setTaskToLoad] = useState('');
+
+  const taskElements = taskList.map(task=><TaskList 
+    task={task}
+    handleClick = {()=>handleDelete(task)}
+  />);
 
   const addTask = () => {
     setTaskList([...taskList,{
@@ -27,7 +33,6 @@ function App() {
       tasks:[taskList]
     }).then((response)=>{
       alert('User Created');
-      console.log(response);
       setIdDisplay(response.data._id);
     })
   }
@@ -39,7 +44,6 @@ function App() {
     }
     }).then((response)=>{
       alert('loaded');
-      console.log(response.data[0].tasks[0]);
       setTaskList(response.data[0].tasks[0]);
     });
   }
@@ -84,13 +88,9 @@ function App() {
       </div>
       
       <div>
-        {taskList.map(task => {
-          return <div>
-            <h1>{task.taskName}</h1>
-            <h2>{task.taskInstructions}</h2>
-            <button onClick={()=>handleDelete(task)}>Delete</button>
-          </div>
-        })}
+        {taskElements}
+
+
         <input
           type='text'
           placeholder='Username'
@@ -103,6 +103,7 @@ function App() {
         <h2>{idDisplay?<h2>ID = {idDisplay}</h2>:null}</h2>
       </div>
     </div>
+    
   );
 }
 
