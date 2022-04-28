@@ -17,14 +17,17 @@ function App() {
 
   const taskElements = taskList.map(task=><TaskList 
     task={task}
-    handleClick = {()=>handleDelete(task)}
+    handleDelete = {()=>deleteTask(task)}
+    // handleComplete= {()=>completeTask(task)}
   />);
+
 
   const addTask = () => {
     setTaskList([...taskList,{
       key: uuidv4(),
       taskName: taskName,
-      taskInstructions:taskInstructions
+      taskInstructions: taskInstructions,
+      taskCompleted: false
     }])
     setTaskName('');
     setTaskInstructions('');
@@ -51,7 +54,7 @@ function App() {
     });
   }
 
-  function handleDelete(task) {
+  function deleteTask(task) {
     setTaskList(taskList.filter(t => t !== task))
   }
 
@@ -76,15 +79,15 @@ function App() {
         handleAddTask = {addTask}
       />
       
-      
-        {taskElements}
+      {taskElements}
+
       <CreateTask
         username={username}
         handleSetUserName={(e)=>{setUsername(e.target.value)}}
         handleCreateTasks={createTasks}
         idDisplay={idDisplay}
       />
-      
+
     </div>
     
   );
