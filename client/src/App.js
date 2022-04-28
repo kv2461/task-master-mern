@@ -1,0 +1,109 @@
+import { useState,useEffect } from 'react';
+import Axios from 'axios';
+import './App.css';
+import {v4 as uuidv4} from 'uuid';
+
+function App() {
+  const [taskList,setTaskList] = useState([]);
+  const [taskName, setTaskName] = useState('');
+  const [taskInstructions, setTaskInstructions] = useState('');
+  const [username,setUsername] = useState('');
+  const [idDisplay,setIdDisplay] = useState('');
+  const [taskToLoad,setTaskToLoad] = useState('');
+
+  const addTask = () => {
+    setTaskList([...taskList,{
+      key: uuidv4(),
+      taskName: taskName,
+      taskInstructions:taskInstructions
+    }])
+    setTaskName('');
+    setTaskInstructions('');
+  }
+
+  const createTasks = () => {
+    Axios.post('http://localhost:3001/createTasks',{
+      username:username,
+      tasks:[taskList]
+    }).then((response)=>{
+      alert('User Created');
+      console.log(response);
+      setIdDisplay(response.data._id);
+    })
+  }
+
+  const loadTask = () => {
+    Axios.get('http://localhost:3001/getTasks', {
+    params: {
+      _id:taskToLoad
+    }
+    }).then((response)=>{
+      alert('loaded');
+      console.log(response.data[0].tasks[0]);
+      setTaskList(response.data[0].tasks[0]);
+    });
+  }
+
+  function handleDelete(task) {
+    setTaskList(taskList.filter(t => t !== task))
+  }
+
+  return (
+    <div className="App">
+
+      <div className='loadTasks'>
+      <input 
+          type='text'
+          placeholder='ID Name'
+          value={taskToLoad}
+          onChange={(e)=>{
+            setTaskToLoad(e.target.value)
+          }}
+        />
+        <button type='button' onClick={loadTask}>Load Tasks</button>
+      </div>
+
+      <div className='taskInput'>
+        <input 
+          type='text'
+          placeholder='Task Name'
+          value={taskName}
+          onChange={(e)=>{
+            setTaskName(e.target.value)
+          }}
+        />
+        <input
+          type='text'
+          placeholder='Instructions'
+          value={taskInstructions}
+          onChange={(e)=>{
+            setTaskInstructions(e.target.value)
+          }}
+        />
+        <button type='button' onClick={addTask}>Add</button>
+      </div>
+      
+      <div>
+        {taskList.map(task => {
+          return <div>
+            <h1>{task.taskName}</h1>
+            <h2>{task.taskInstructions}</h2>
+            <button onClick={()=>handleDelete(task)}>Delete</button>
+          </div>
+        })}
+        <input
+          type='text'
+          placeholder='Username'
+          value={username}
+          onChange={(e)=>{
+            setUsername(e.target.value)
+          }}
+        />
+        <button type='button' onClick={createTasks}>Create Tasklist</button>
+        <h2>{idDisplay?<h2>ID = {idDisplay}</h2>:null}</h2>
+      </div>
+    </div>
+  );
+}
+
+export default App;
