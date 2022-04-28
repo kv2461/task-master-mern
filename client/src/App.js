@@ -2,8 +2,10 @@ import { useState,useEffect } from 'react';
 import Axios from 'axios';
 import './App.css';
 import {v4 as uuidv4} from 'uuid';
-import TaskList from './Components/TaskList'
-import TaskInput from './Components/TaskInput'
+import TaskList from './Components/TaskList';
+import TaskInput from './Components/TaskInput';
+import LoadTask from './Components/LoadTask';
+import CreateTask from "./Components/CreateTask";
 
 function App() {
   const [taskList,setTaskList] = useState([]);
@@ -56,17 +58,11 @@ function App() {
   return (
     <div className="App">
 
-      <div className='loadTasks'>
-      <input 
-          type='text'
-          placeholder='ID Name'
-          value={taskToLoad}
-          onChange={(e)=>{
-            setTaskToLoad(e.target.value)
-          }}
-        />
-        <button type='button' onClick={loadTask}>Load Tasks</button>
-      </div>
+      <LoadTask
+        handleTaskToLoad={(e)=>{setTaskToLoad(e.target.value)}}
+        loadTaskValue = {taskToLoad}
+        handleLoadTask={loadTask}
+      />
 
       <TaskInput 
         taskNameValue={taskName}
@@ -80,21 +76,15 @@ function App() {
         handleAddTask = {addTask}
       />
       
-      <div>
+      
         {taskElements}
-
-
-        <input
-          type='text'
-          placeholder='Username'
-          value={username}
-          onChange={(e)=>{
-            setUsername(e.target.value)
-          }}
-        />
-        <button type='button' onClick={createTasks}>Create Tasklist</button>
-        <h2>{idDisplay?<h2>ID = {idDisplay}</h2>:null}</h2>
-      </div>
+      <CreateTask
+        username={username}
+        handleSetUserName={(e)=>{setUsername(e.target.value)}}
+        handleCreateTasks={createTasks}
+        idDisplay={idDisplay}
+      />
+      
     </div>
     
   );
