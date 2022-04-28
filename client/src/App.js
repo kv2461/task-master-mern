@@ -3,6 +3,7 @@ import Axios from 'axios';
 import './App.css';
 import {v4 as uuidv4} from 'uuid';
 import TaskList from './Components/TaskList'
+import TaskInput from './Components/TaskInput'
 
 function App() {
   const [taskList,setTaskList] = useState([]);
@@ -67,25 +68,17 @@ function App() {
         <button type='button' onClick={loadTask}>Load Tasks</button>
       </div>
 
-      <div className='taskInput'>
-        <input 
-          type='text'
-          placeholder='Task Name'
-          value={taskName}
-          onChange={(e)=>{
-            setTaskName(e.target.value)
-          }}
-        />
-        <input
-          type='text'
-          placeholder='Instructions'
-          value={taskInstructions}
-          onChange={(e)=>{
-            setTaskInstructions(e.target.value)
-          }}
-        />
-        <button type='button' onClick={addTask}>Add</button>
-      </div>
+      <TaskInput 
+        taskNameValue={taskName}
+        taskInstructionValue = {taskInstructions}
+        handleName={(e)=>{
+          setTaskName(e.target.value)
+        }}
+        handleInstructions={(e)=>{
+          setTaskInstructions(e.target.value)
+        }}
+        handleAddTask = {addTask}
+      />
       
       <div>
         {taskElements}
