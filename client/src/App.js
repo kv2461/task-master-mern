@@ -18,7 +18,7 @@ function App() {
   const taskElements = taskList.map(task=><TaskList 
     task={task}
     handleDelete = {()=>deleteTask(task)}
-    // handleComplete= {()=>completeTask(task)}
+    handleComplete= {()=>completeTask(task)}
   />);
 
 
@@ -31,6 +31,22 @@ function App() {
     }])
     setTaskName('');
     setTaskInstructions('');
+  }
+  
+  const completeTask = (task) => {
+    const updatedList = taskList.map((t) => {
+      if (t.key === task.key) {
+        const updatedTask = {
+          ...t,
+          taskCompleted:!t.taskCompleted
+        };
+
+        return updatedTask;
+      }
+      return t;
+    });
+
+    setTaskList(updatedList);
   }
 
   const createTasks = () => {
