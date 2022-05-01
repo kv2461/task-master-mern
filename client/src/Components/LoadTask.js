@@ -5,7 +5,7 @@ export default function LoadTask({handleTaskToLoad,handleLoadTask,loadTaskValue}
     <div className='loadTasks'>
       <input 
           type='text'
-          placeholder='ID Name'
+          placeholder='ID Number'
           value={loadTaskValue}
           onChange={handleTaskToLoad}
         />
