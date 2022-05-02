@@ -15,6 +15,25 @@ function App() {
   const [idDisplay,setIdDisplay] = useState('');
   const [taskToLoad,setTaskToLoad] = useState('');
 
+  function getParameter(parameterName) {
+    let parameters = new URLSearchParams(window.location.search);
+    return parameters.get(parameterName);
+  }
+
+  useEffect(()=> {
+    let _id = getParameter('id');
+    if (_id) {
+      Axios.get('http://localhost:3001/getTasks', {
+    params: {
+      _id:_id
+    }
+    }).then((response)=>{
+      setTaskList(response.data[0].tasks[0]);
+    });
+      setTaskToLoad(_id);
+    }
+  },[])
+
   const taskElements = taskList.map(task=><TaskList 
     task={task}
     handleDelete = {()=>deleteTask(task)}
@@ -55,7 +74,7 @@ function App() {
       tasks:[taskList]
     }).then((response)=>{
       alert('User Created');
-      setIdDisplay(response.data._id);
+      setIdDisplay(`http://localhost:3000/?id=${response.data._id}`);
     })
   }
 

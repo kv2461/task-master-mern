@@ -10,7 +10,7 @@ export default function CreateTask({username, handleSetUserName, handleCreateTas
           onChange={handleSetUserName}
         />
         <button type='button' onClick={handleCreateTasks}>Create Tasklist</button>
-        <h2>{idDisplay?<h2>ID = {idDisplay}</h2>:null}</h2>
+        <h2>{idDisplay?<h2>URL: {idDisplay}</h2>:null}</h2>
       </div>
     )
 }
