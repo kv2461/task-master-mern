@@ -79,6 +79,14 @@ function App() {
     Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id}) 
   }
 
+  const deleteTasks = (id) => {
+    Axios.delete(`http://localhost:3001/deleteTasks/${id}`)
+      .then(()=>{
+        setTaskList([]);
+      })
+  }
+  
+
   return (
     <div className="App">
 
@@ -89,6 +97,7 @@ function App() {
       />
 
       <button type='button' onClick={()=>updateTasks(taskToLoad)}>Update List</button>
+      <button type='button' onClick={()=>deleteTasks(taskToLoad)}>Delete List</button>
 
       <TaskInput 
         taskNameValue={taskName}

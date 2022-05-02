@@ -50,6 +50,12 @@ app.put('/updateTasks', async (req,res) => {
     res.send('updated');
 })
 
+app.delete('/deleteTasks/:id', async (req,res)=> {
+    const id = req.params.id;
+    await UserTasks.findByIdAndRemove(id).exec();
+    res.send('item deleted');
+})
+
 app.listen(3001,()=>{
     console.log('server is running on 3001')
 })
