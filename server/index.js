@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const UserModel = require('./models/Users');
 const cors = require('cors');
 const UserTasks = require('./models/Tasks');
 
@@ -25,12 +24,30 @@ app.post('/createTasks', async(req,res)=>{
     const tasks = req.body;
     const newTasks = new UserTasks(tasks);
     
-    try{await newTasks.save().then((task)=> {
+    try{
+        await newTasks.save().then((task)=> {
         res.json(task)
     });
     } catch (error){
         console.log(error);
     }
+})
+
+app.put('/updateTasks', async (req,res) => {
+    const newTasks = req.body.tasks
+    const id = req.body._id
+    try {
+        await UserTasks.findById(id,(error, tasksToUpdate) => {
+            tasksToUpdate.tasks[0] = newTasks;
+            console.log(tasksToUpdate.tasks[0]);
+            tasksToUpdate.save();
+        })
+
+    } catch (err) {
+        console.log(err);
+    }
+
+    res.send('updated');
 })
 
 app.listen(3001,()=>{

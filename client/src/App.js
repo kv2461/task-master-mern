@@ -74,6 +74,11 @@ function App() {
     setTaskList(taskList.filter(t => t !== task))
   }
 
+  const updateTasks = (id) => {
+    const tasks = taskList;
+    Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id})
+  }
+
   return (
     <div className="App">
 
@@ -82,6 +87,8 @@ function App() {
         loadTaskValue = {taskToLoad}
         handleLoadTask={loadTask}
       />
+
+      <button type='button' onClick={()=>updateTasks(taskToLoad)}>Update List</button>
 
       <TaskInput 
         taskNameValue={taskName}
