@@ -14,7 +14,7 @@ export default function TaskList({task,handleDelete,handleComplete}) {
                 {task.taskInstructions}
             </h2>
             <button onClick={handleDelete}>Delete</button>
-            <button type='button' onClick={handleComplete}>Complete</button>
+            <button type= 'button' onClick={handleComplete}>Complete</button>
           </div>
     )
 }
