@@ -76,7 +76,7 @@ function App() {
 
   const updateTasks = (id) => {
     const tasks = taskList;
-    Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id})
+    Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id}) 
   }
 
   return (
