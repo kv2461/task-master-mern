@@ -11,9 +11,9 @@ export default function LoadTask({handleTaskToLoad,handleLoadTask,loadTaskValue,
           onChange={handleTaskToLoad}
         />
         <div className='buttons'>
-        <button type='button' onClick={handleLoadTask}>Load Tasks</button>
-        <button type='button' onClick={handleDeleteTasks}>Delete Tasks</button>
-        <button type='button' onClick={handleUpdateTasks}>Update Tasks</button>
+        <button type='button' onClick={handleLoadTask}>Load Task List</button>
+        <button type='button' onClick={handleDeleteTasks}>Delete Task List</button>
+        <button type='button' onClick={handleUpdateTasks}>Update Task List</button>
         </div>
       </div>
     )
