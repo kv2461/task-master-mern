@@ -75,6 +75,7 @@ function App() {
     }).then((response)=>{
       alert('User Created');
       setIdDisplay(`http://localhost:3000/?id=${response.data._id}`);
+      setTaskToLoad(response.data._id)
     })
   }
 
@@ -134,14 +135,20 @@ function App() {
   return (
     <div className="App">
 
+      <h1>Task Master</h1>
+      <h2>{idDisplay?<h2>URL: {idDisplay}</h2>:null}</h2>
+      <CreateTask
+        username={username}
+        handleSetUserName={(e)=>{setUsername(e.target.value)}}
+        handleCreateTasks={createTasks}
+      />
       <LoadTask
         handleTaskToLoad={(e)=>{setTaskToLoad(e.target.value)}}
         loadTaskValue = {taskToLoad}
         handleLoadTask={loadTask}
+        handleUpdateTasks={()=>updateTasks(taskToLoad)}
+        handleDeleteTasks={()=>deleteTasks(taskToLoad)}
       />
-
-      <button type='button' onClick={()=>updateTasks(taskToLoad)}>Update List</button>
-      <button type='button' onClick={()=>deleteTasks(taskToLoad)}>Delete List</button>
 
       <TaskInput 
         taskNameValue={taskName}
@@ -156,13 +163,6 @@ function App() {
       />
       
       {taskElements}
-
-      <CreateTask
-        username={username}
-        handleSetUserName={(e)=>{setUsername(e.target.value)}}
-        handleCreateTasks={createTasks}
-        idDisplay={idDisplay}
-      />
 
     </div>
     

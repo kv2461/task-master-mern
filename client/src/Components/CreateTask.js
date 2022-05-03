@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CreateTask({username, handleSetUserName, handleCreateTasks, idDisplay}) {
+export default function CreateTask({username, handleSetUserName, handleCreateTasks}) {
     return(
         <div>
         <input
@@ -10,7 +10,6 @@ export default function CreateTask({username, handleSetUserName, handleCreateTas
           onChange={handleSetUserName}
         />
         <button type='button' onClick={handleCreateTasks}>Create Tasklist</button>
-        <h2>{idDisplay?<h2>URL: {idDisplay}</h2>:null}</h2>
       </div>
     )
 }
