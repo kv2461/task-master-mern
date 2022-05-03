@@ -24,7 +24,7 @@ function App() {
   useEffect(()=> {
     let _id = getParameter('id');
     if (_id) {
-      Axios.get('http://localhost:3001/getTasks', {
+      Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
     params: {
       _id:_id
     }
@@ -70,18 +70,18 @@ function App() {
   }
 
   const createTasks = () => {
-    Axios.post('http://localhost:3001/createTasks',{
+    Axios.post('https://task-master-kv.herokuapp.com/createTasks',{
       username:username,
       tasks:[taskList]
     }).then((response)=>{
       alert('User Created');
-      setIdDisplay(`http://localhost:3000/?id=${response.data._id}`);
+      setIdDisplay(`https://task-master-kv.herokuapp.com/?id=${response.data._id}`);
       setTaskToLoad(response.data._id)
     })
   }
 
   const loadTask = () => {
-    Axios.get('http://localhost:3001/getTasks', {
+    Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
     params: {
       _id:taskToLoad
     }
@@ -99,15 +99,15 @@ function App() {
   }
 
   const updateTasks = (id) => {
-    Axios.get('http://localhost:3001/getTasks', {
+    Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
       params: {
         _id:id,
       }
     }).then((response => {
       if (response.data[0].username === username) {
         const tasks = taskList;
-        Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id})
-        setIdDisplay(`http://localhost:3000/?id=${id}`);
+        Axios.put('https://task-master-kv.herokuapp.com/', {tasks: tasks, _id:id})
+        setIdDisplay(`https://task-master-kv.herokuapp.com/?id=${id}`);
 
       } else {
         alert('username does not match');
@@ -116,13 +116,13 @@ function App() {
   }
 
   const deleteTasks = (id) => {
-    Axios.get('http://localhost:3001/getTasks', {
+    Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
       params: {
         _id:id
       }
     }).then ((response)=> {
       if(response.data[0].username === username) {
-        Axios.delete(`http://localhost:3001/deleteTasks/${id}`)
+        Axios.delete(`https://task-master-kv.herokuapp.com/deleteTasks/${id}`)
         .then(()=>{
           setTaskList([]);
         })
