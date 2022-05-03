@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TaskList({task,handleDelete,handleComplete}) {
+export default function TaskList({task,handleDelete,handleComplete,handleDecrementCounter,handleIncrementCounter}) {
     return(
         <div className='taskContainer'>
             <h4
@@ -15,9 +15,14 @@ export default function TaskList({task,handleDelete,handleComplete}) {
             >
                 {task.taskInstructions}
             </h5>
+            <div className='taskCounterContainer'>
+                <button type='button' onClick={handleDecrementCounter}>-</button>
+                <h4>{task.taskCounter}</h4>
+                <button type='button' onClick={handleIncrementCounter}>+</button>
+            </div>
             <div className='taskButtons'>
-                <button onClick={handleDelete}>Delete</button>
-                <button type= 'button' onClick={handleComplete}>Complete</button>
+                <button type='button' onClick={handleDelete}>Delete</button>
+                <button type='button' onClick={handleComplete}>Complete</button>
             </div>
         </div>
     )

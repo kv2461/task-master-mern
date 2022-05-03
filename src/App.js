@@ -39,7 +39,11 @@ function App() {
     task={task}
     handleDelete = {()=>deleteTask(task)}
     handleComplete= {()=>completeTask(task)}
+    handleIncrementCounter={()=>incrementTaskCounter(task)}
+    handleDecrementCounter={()=>decrementTaskCounter(task)}
   />);
+
+  
 
 
   const addTask = () => {
@@ -48,13 +52,46 @@ function App() {
         key: uuidv4(),
         taskName: taskName,
         taskInstructions: taskInstructions,
-        taskCompleted: false
+        taskCompleted: false,
+        taskCounter: 0
       }])
       setTaskName('');
       setTaskInstructions('');
     } else {
       alert('Task needs a name')
     }
+  }
+
+  const incrementTaskCounter = (task) => {
+    const updatedList = taskList.map((t) => {
+      if (t.key === task.key) {
+        const updatedTask = {
+          ...t,
+          taskCounter:t.taskCounter+1
+        };
+
+        return updatedTask;
+      }
+      return t;
+    });
+
+    setTaskList(updatedList);
+  }
+  
+  const decrementTaskCounter = (task) => {
+    const updatedList = taskList.map((t) => {
+      if (t.key === task.key) {
+        const updatedTask = {
+          ...t,
+          taskCounter:t.taskCounter-1
+        };
+
+        return updatedTask;
+      }
+      return t;
+    });
+
+    setTaskList(updatedList);
   }
   
   const completeTask = (task) => {

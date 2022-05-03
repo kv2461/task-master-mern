@@ -116,6 +116,23 @@ h1 {
   text-decoration: none;
 }
 
+.taskCounterContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.taskCounterContainer h4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Bebas Neue", cursive;
+  border: 2px solid #ef476f;
+  border-radius: 100%;
+  width: 1.3rem;
+  background-color: #ef476f;
+  color: white;
+}
+
 /* BUTTONS */
 
 .head button {
