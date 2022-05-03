@@ -89,7 +89,7 @@ function App() {
       if (response.data[0] !== undefined) {
         setTaskList(response.data[0].tasks[0]);
       } else {
-        alert('unable to find')
+        alert('Unable to find anything by that ID')
       }
     });
   }
@@ -110,7 +110,7 @@ function App() {
         setIdDisplay(`https://task-master-kv.netlify.app/?id=${id}`);
 
       } else {
-        alert('username does not match');
+        alert('Username does not match');
       }
     }))
   }
@@ -127,7 +127,7 @@ function App() {
           setTaskList([]);
         })
       } else {
-        alert('username does not match')
+        alert('Username does not match')
       }
     })
   }
