@@ -75,7 +75,7 @@ function App() {
       tasks:[taskList]
     }).then((response)=>{
       alert('User Created');
-      setIdDisplay(`https://task-master-kv.herokuapp.com/?id=${response.data._id}`);
+      setIdDisplay(`https://task-master-kv.netlify.app/?id=${response.data._id}`);
       setTaskToLoad(response.data._id)
     })
   }
