@@ -84,8 +84,11 @@ function App() {
       _id:taskToLoad
     }
     }).then((response)=>{
-      alert('loaded');
-      setTaskList(response.data[0].tasks[0]);
+      if (response.data[0] !== undefined) {
+        setTaskList(response.data[0].tasks);
+      } else {
+        alert('unable to find')
+      }
     });
   }
 
@@ -94,15 +97,35 @@ function App() {
   }
 
   const updateTasks = (id) => {
-    const tasks = taskList;
-    Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id}) 
+    Axios.get('http://localhost:3001/getTasks', {
+      params: {
+        _id:id,
+      }
+    }).then((response => {
+      if (response.data[0].username === username) {
+        const tasks = taskList;
+        Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id}) 
+      } else {
+        alert('username does not match');
+      }
+    }))
   }
 
   const deleteTasks = (id) => {
-    Axios.delete(`http://localhost:3001/deleteTasks/${id}`)
-      .then(()=>{
-        setTaskList([]);
-      })
+    Axios.get('http://localhost:3001/getTasks', {
+      params: {
+        _id:id
+      }
+    }).then ((response)=> {
+      if(response.data[0].username === username) {
+        Axios.delete(`http://localhost:3001/deleteTasks/${id}`)
+        .then(()=>{
+          setTaskList([]);
+        })
+      } else {
+        alert('username does not match')
+      }
+    })
   }
   
 
