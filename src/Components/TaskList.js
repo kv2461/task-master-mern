@@ -17,8 +17,8 @@ export default function TaskList({task,handleDelete,handleComplete,handleDecreme
             </h5>
             <div className='taskOptionsContainer'>
                 <div className='moveTaskContainer'>
-                    <button className ='moveTaskButton' type='button' onClick={handleMoveTaskUp}><i class="fa-solid fa-sort-up"></i></button>
-                    <button className ='moveTaskButton' type='button' onClick={handleMoveTaskDown}><i class="fa-solid fa-sort-down"></i></button>
+                    <button className ='moveTaskButton' type='button' onClick={handleMoveTaskUp}><i className="fa-solid fa-sort-up"></i></button>
+                    <button className ='moveTaskButton' type='button' onClick={handleMoveTaskDown}><i className="fa-solid fa-sort-down"></i></button>
                 </div>
                 <div className='taskCounterContainer'>
                     <button type='button' onClick={handleDecrementCounter}>-</button>
