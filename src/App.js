@@ -82,7 +82,7 @@ function App() {
         }).then((response)=>{
           alert('User Created');
           setIdDisplay(`https://task-master-kv.netlify.app/?id=${response.data._id}`);
-          setTaskToLoad(response.data._id)
+          setTaskToLoad(response.data._id);
         })
       } else {
         alert('Task list is empty')
@@ -111,20 +111,24 @@ function App() {
   }
 
   const updateTasks = (id) => {
-    Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
-      params: {
-        _id:id,
-      }
-    }).then((response => {
-      if (response.data[0].username === username) {
-        const tasks = taskList;
-        Axios.put('https://task-master-kv.herokuapp.com/updateTasks', {tasks: tasks, _id:id})
-        setIdDisplay(`https://task-master-kv.netlify.app/?id=${id}`);
+    if (taskList.length > 0) {
+      Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
+        params: {
+          _id:id,
+        }
+      }).then((response => {
+        if (response.data[0].username === username) {
+          const tasks = taskList;
+          Axios.put('https://task-master-kv.herokuapp.com/updateTasks', {tasks: tasks, _id:id})
+          setIdDisplay(`https://task-master-kv.netlify.app/?id=${id}`);
 
-      } else {
-        alert('Username does not match');
-      }
-    }))
+        } else {
+          alert('Username does not match');
+        }
+      }))
+    } else {
+      alert('Task list is empty, delete task list instead')
+    }
   }
 
   const deleteTasks = (id) => {
