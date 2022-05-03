@@ -1,5 +1,6 @@
 import { useState,useEffect } from 'react';
 import Axios from 'axios';
+import './reset.css';
 import './App.css';
 import {v4 as uuidv4} from 'uuid';
 import TaskList from './Components/TaskList';
@@ -141,12 +142,12 @@ function App() {
   return (
     <div className="App">
       <div className='head'>
-        <h1>Task Master</h1>
         {idDisplay?<div className='urlLinkContainer'>
           <h6>URL: {idDisplay}</h6>
           <button onClick={copyToClipboard}>Copy URL to Clipboard</button>
           </div>
-          :null}
+          :<div className='urlLinkContainer'></div>}
+        <h1>Task Master</h1>
         <CreateTask
           username={username}
           handleSetUserName={(e)=>{setUsername(e.target.value)}}
