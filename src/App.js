@@ -107,7 +107,7 @@ function App() {
       if (response.data[0].username === username) {
         const tasks = taskList;
         Axios.put('https://task-master-kv.herokuapp.com/', {tasks: tasks, _id:id})
-        setIdDisplay(`https://task-master-kv.herokuapp.com/?id=${id}`);
+        setIdDisplay(`https://task-master-kv.netlify.app/?id=${id}`);
 
       } else {
         alert('username does not match');
