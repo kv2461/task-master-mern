@@ -43,14 +43,18 @@ function App() {
 
 
   const addTask = () => {
-    setTaskList([...taskList,{
-      key: uuidv4(),
-      taskName: taskName,
-      taskInstructions: taskInstructions,
-      taskCompleted: false
-    }])
-    setTaskName('');
-    setTaskInstructions('');
+    if (taskName !== '') {
+      setTaskList([...taskList,{
+        key: uuidv4(),
+        taskName: taskName,
+        taskInstructions: taskInstructions,
+        taskCompleted: false
+      }])
+      setTaskName('');
+      setTaskInstructions('');
+    } else {
+      alert('Task needs a name')
+    }
   }
   
   const completeTask = (task) => {
@@ -70,14 +74,18 @@ function App() {
   }
 
   const createTasks = () => {
-    Axios.post('https://task-master-kv.herokuapp.com/createTasks',{
-      username:username,
-      tasks:[taskList]
-    }).then((response)=>{
-      alert('User Created');
-      setIdDisplay(`https://task-master-kv.netlify.app/?id=${response.data._id}`);
-      setTaskToLoad(response.data._id)
-    })
+    if (username !== '') {
+      Axios.post('https://task-master-kv.herokuapp.com/createTasks',{
+        username:username,
+        tasks:[taskList]
+      }).then((response)=>{
+        alert('User Created');
+        setIdDisplay(`https://task-master-kv.netlify.app/?id=${response.data._id}`);
+        setTaskToLoad(response.data._id)
+      })
+    } else {
+      alert ('Needs username')
+    }
   }
 
   const loadTask = () => {
