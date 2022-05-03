@@ -41,6 +41,8 @@ function App() {
     handleComplete= {()=>completeTask(task)}
     handleIncrementCounter={()=>incrementTaskCounter(task)}
     handleDecrementCounter={()=>decrementTaskCounter(task)}
+    handleMoveTaskUp = {()=>moveTaskUp(task)}
+    handleMoveTaskDown = {()=>moveTaskDown(task)}
   />);
 
   
@@ -107,6 +109,44 @@ function App() {
       return t;
     });
 
+    setTaskList(updatedList);
+  }
+
+  const changeValuePosition = (arr, init, target) => {
+    [arr[init],arr[target]] = [arr[target],arr[init]];
+     return arr
+  }
+
+  const moveTaskUp = (task) => {
+    let index = 0;
+    const updatedList = taskList.map((t,i) => {
+      if (t.key === task.key) {
+        index = i;
+      }
+      return t;
+    });
+    if (index>0){
+      changeValuePosition(updatedList,index,index-1);
+    } else {
+      alert('Already at first position')
+    }
+    setTaskList(updatedList);
+  }
+
+
+  const moveTaskDown = (task) => {
+    let index = 0;
+    const updatedList = taskList.map((t,i) => {
+      if (t.key === task.key) {
+        index = i;
+      }
+      return t;
+    });
+    if (index<updatedList.length-1){
+      changeValuePosition(updatedList,index,index+1);
+    } else {
+      alert('Already at last position')
+    }
     setTaskList(updatedList);
   }
 

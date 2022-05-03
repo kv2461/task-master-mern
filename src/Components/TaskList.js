@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TaskList({task,handleDelete,handleComplete,handleDecrementCounter,handleIncrementCounter}) {
+export default function TaskList({task,handleDelete,handleComplete,handleDecrementCounter,handleIncrementCounter,handleMoveTaskDown,handleMoveTaskUp}) {
     return(
         <div className='taskContainer'>
             <h4
@@ -15,10 +15,16 @@ export default function TaskList({task,handleDelete,handleComplete,handleDecreme
             >
                 {task.taskInstructions}
             </h5>
-            <div className='taskCounterContainer'>
-                <button type='button' onClick={handleDecrementCounter}>-</button>
-                <h4>{task.taskCounter}</h4>
-                <button type='button' onClick={handleIncrementCounter}>+</button>
+            <div className='taskOptionsContainer'>
+                <div className='moveTaskContainer'>
+                    <button className ='moveTaskButton' type='button' onClick={handleMoveTaskUp}><i class="fa-solid fa-sort-up"></i></button>
+                    <button className ='moveTaskButton' type='button' onClick={handleMoveTaskDown}><i class="fa-solid fa-sort-down"></i></button>
+                </div>
+                <div className='taskCounterContainer'>
+                    <button type='button' onClick={handleDecrementCounter}>-</button>
+                    <h4>{task.taskCounter}</h4>
+                    <button type='button' onClick={handleIncrementCounter}>+</button>
+                </div>
             </div>
             <div className='taskButtons'>
                 <button type='button' onClick={handleDelete}>Delete</button>
