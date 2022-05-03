@@ -75,14 +75,18 @@ function App() {
 
   const createTasks = () => {
     if (username !== '') {
-      Axios.post('https://task-master-kv.herokuapp.com/createTasks',{
-        username:username,
-        tasks:[taskList]
-      }).then((response)=>{
-        alert('User Created');
-        setIdDisplay(`https://task-master-kv.netlify.app/?id=${response.data._id}`);
-        setTaskToLoad(response.data._id)
-      })
+      if (taskList.length > 0) {
+        Axios.post('https://task-master-kv.herokuapp.com/createTasks',{
+          username:username,
+          tasks:[taskList]
+        }).then((response)=>{
+          alert('User Created');
+          setIdDisplay(`https://task-master-kv.netlify.app/?id=${response.data._id}`);
+          setTaskToLoad(response.data._id)
+        })
+      } else {
+        alert('Task list is empty')
+      }
     } else {
       alert ('Needs username')
     }
