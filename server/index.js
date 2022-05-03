@@ -39,7 +39,6 @@ app.put('/updateTasks', async (req,res) => {
     try {
         await UserTasks.findById(id,(error, tasksToUpdate) => {
             tasksToUpdate.tasks[0] = newTasks;
-            console.log(tasksToUpdate.tasks[0]);
             tasksToUpdate.save();
         })
 

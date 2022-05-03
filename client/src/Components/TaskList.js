@@ -7,7 +7,7 @@ export default function TaskList({task,handleDelete,handleComplete}) {
                 className='taskName'
                 style={task.taskCompleted?{textDecoration:'line-through'}:null}
             >
-                <a href={`http://www.google.com/search?q=${task.taskName}`} target='_blank'>{task.taskName}</a>
+                <a href={`http://www.google.com/search?q=${task.taskName}`} target='_blank' rel="noreferrer" >{task.taskName}</a>
             </h4>
             <h5 
                 className='taskInstructions'

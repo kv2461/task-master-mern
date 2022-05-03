@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function({handleAddTask,handleName,handleInstructions,taskNameValue,taskInstructionValue}) {
+export default function TaskInput({handleAddTask,handleName,handleInstructions,taskNameValue,taskInstructionValue}) {
     return(
     <div className='taskInputContainer taskForm'>
         <div className='taskInputs'>

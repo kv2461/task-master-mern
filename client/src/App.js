@@ -147,7 +147,7 @@ function App() {
           <button onClick={copyToClipboard}>Copy URL to Clipboard</button>
           </div>
           :<div className='urlLinkContainer'></div>}
-        <h1>Task Master</h1>
+        <h1>Task<i className="fa-solid fa-bars-progress"></i>Master</h1>
         <CreateTask
           username={username}
           handleSetUserName={(e)=>{setUsername(e.target.value)}}
