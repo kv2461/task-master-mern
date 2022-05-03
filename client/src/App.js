@@ -85,7 +85,7 @@ function App() {
     }
     }).then((response)=>{
       if (response.data[0] !== undefined) {
-        setTaskList(response.data[0].tasks);
+        setTaskList(response.data[0].tasks[0]);
       } else {
         alert('unable to find')
       }
