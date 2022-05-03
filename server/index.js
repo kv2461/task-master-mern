@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const UserTasks = require('./models/Tasks');
+require('dotenv').config();
 
 app.use(express.json());
 app.use(cors());
@@ -55,6 +56,6 @@ app.delete('/deleteTasks/:id', async (req,res)=> {
     res.send('item deleted');
 })
 
-app.listen(3001,()=>{
+app.listen(process.env.PORT || 3001,()=>{
     console.log('server is running on 3001')
 })

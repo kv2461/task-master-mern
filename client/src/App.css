@@ -94,6 +94,12 @@ h1 {
   align-items: center;
 }
 
+.taskOptionsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .taskContainer {
   width: 80%;
   display: flex;
@@ -116,12 +122,30 @@ h1 {
   text-decoration: none;
 }
 
+.taskCounterContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.taskCounterContainer h4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Bebas Neue", cursive;
+  border: 2px solid #ef476f;
+  border-radius: 100%;
+  width: 1.3rem;
+  background-color: #ef476f;
+  color: white;
+}
+
 /* BUTTONS */
 
 .head button {
   border: 0.5px solid #06d6a0;
   margin: 3px;
   background-color: #06d6a0;
+  color: black;
   border-radius: 10px;
   font-family: "Play", sans-serif;
 }
@@ -133,6 +157,12 @@ h1 {
   border-radius: 10px;
   color: white;
   font-family: "Play", sans-serif;
+}
+
+.moveTaskContainer {
+  display: flex;
+  flex-direction: row;
+  margin-right: 4rem;
 }
 
 /* NON MOBILE */

@@ -24,7 +24,7 @@ function App() {
   useEffect(()=> {
     let _id = getParameter('id');
     if (_id) {
-      Axios.get('http://localhost:3001/getTasks', {
+      Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
     params: {
       _id:_id
     }
@@ -39,18 +39,61 @@ function App() {
     task={task}
     handleDelete = {()=>deleteTask(task)}
     handleComplete= {()=>completeTask(task)}
+    handleIncrementCounter={()=>incrementTaskCounter(task)}
+    handleDecrementCounter={()=>decrementTaskCounter(task)}
+    handleMoveTaskUp = {()=>moveTaskUp(task)}
+    handleMoveTaskDown = {()=>moveTaskDown(task)}
   />);
+
+  
 
 
   const addTask = () => {
-    setTaskList([...taskList,{
-      key: uuidv4(),
-      taskName: taskName,
-      taskInstructions: taskInstructions,
-      taskCompleted: false
-    }])
-    setTaskName('');
-    setTaskInstructions('');
+    if (taskName !== '') {
+      setTaskList([...taskList,{
+        key: uuidv4(),
+        taskName: taskName,
+        taskInstructions: taskInstructions,
+        taskCompleted: false,
+        taskCounter: 0
+      }])
+      setTaskName('');
+      setTaskInstructions('');
+    } else {
+      alert('Task needs a name')
+    }
+  }
+
+  const incrementTaskCounter = (task) => {
+    const updatedList = taskList.map((t) => {
+      if (t.key === task.key) {
+        const updatedTask = {
+          ...t,
+          taskCounter:t.taskCounter+1
+        };
+
+        return updatedTask;
+      }
+      return t;
+    });
+
+    setTaskList(updatedList);
+  }
+  
+  const decrementTaskCounter = (task) => {
+    const updatedList = taskList.map((t) => {
+      if (t.key === task.key) {
+        const updatedTask = {
+          ...t,
+          taskCounter:t.taskCounter-1
+        };
+
+        return updatedTask;
+      }
+      return t;
+    });
+
+    setTaskList(updatedList);
   }
   
   const completeTask = (task) => {
@@ -69,19 +112,65 @@ function App() {
     setTaskList(updatedList);
   }
 
+  const changeValuePosition = (arr, init, target) => {
+    [arr[init],arr[target]] = [arr[target],arr[init]];
+     return arr
+  }
+
+  const moveTaskUp = (task) => {
+    let index = 0;
+    const updatedList = taskList.map((t,i) => {
+      if (t.key === task.key) {
+        index = i;
+      }
+      return t;
+    });
+    if (index>0){
+      changeValuePosition(updatedList,index,index-1);
+    } else {
+      alert('Already at first position')
+    }
+    setTaskList(updatedList);
+  }
+
+
+  const moveTaskDown = (task) => {
+    let index = 0;
+    const updatedList = taskList.map((t,i) => {
+      if (t.key === task.key) {
+        index = i;
+      }
+      return t;
+    });
+    if (index<updatedList.length-1){
+      changeValuePosition(updatedList,index,index+1);
+    } else {
+      alert('Already at last position')
+    }
+    setTaskList(updatedList);
+  }
+
   const createTasks = () => {
-    Axios.post('http://localhost:3001/createTasks',{
-      username:username,
-      tasks:[taskList]
-    }).then((response)=>{
-      alert('User Created');
-      setIdDisplay(`http://localhost:3000/?id=${response.data._id}`);
-      setTaskToLoad(response.data._id)
-    })
+    if (username !== '') {
+      if (taskList.length > 0) {
+        Axios.post('https://task-master-kv.herokuapp.com/createTasks',{
+          username:username,
+          tasks:[taskList]
+        }).then((response)=>{
+          alert('User Created');
+          setIdDisplay(`https://task-master-kv.netlify.app/?id=${response.data._id}`);
+          setTaskToLoad(response.data._id);
+        })
+      } else {
+        alert('Task list is empty')
+      }
+    } else {
+      alert ('Needs username')
+    }
   }
 
   const loadTask = () => {
-    Axios.get('http://localhost:3001/getTasks', {
+    Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
     params: {
       _id:taskToLoad
     }
@@ -89,7 +178,7 @@ function App() {
       if (response.data[0] !== undefined) {
         setTaskList(response.data[0].tasks[0]);
       } else {
-        alert('unable to find')
+        alert('Unable to find anything by that ID')
       }
     });
   }
@@ -99,35 +188,39 @@ function App() {
   }
 
   const updateTasks = (id) => {
-    Axios.get('http://localhost:3001/getTasks', {
-      params: {
-        _id:id,
-      }
-    }).then((response => {
-      if (response.data[0].username === username) {
-        const tasks = taskList;
-        Axios.put('http://localhost:3001/updateTasks', {tasks: tasks, _id:id})
-        setIdDisplay(`http://localhost:3000/?id=${id}`);
+    if (taskList.length > 0) {
+      Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
+        params: {
+          _id:id,
+        }
+      }).then((response => {
+        if (response.data[0].username === username) {
+          const tasks = taskList;
+          Axios.put('https://task-master-kv.herokuapp.com/updateTasks', {tasks: tasks, _id:id})
+          setIdDisplay(`https://task-master-kv.netlify.app/?id=${id}`);
 
-      } else {
-        alert('username does not match');
-      }
-    }))
+        } else {
+          alert('Username does not match');
+        }
+      }))
+    } else {
+      alert('Task list is empty, delete task list instead')
+    }
   }
 
   const deleteTasks = (id) => {
-    Axios.get('http://localhost:3001/getTasks', {
+    Axios.get('https://task-master-kv.herokuapp.com/getTasks', {
       params: {
         _id:id
       }
     }).then ((response)=> {
       if(response.data[0].username === username) {
-        Axios.delete(`http://localhost:3001/deleteTasks/${id}`)
+        Axios.delete(`https://task-master-kv.herokuapp.com/deleteTasks/${id}`)
         .then(()=>{
           setTaskList([]);
         })
       } else {
-        alert('username does not match')
+        alert('Username does not match')
       }
     })
   }
