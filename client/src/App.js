@@ -130,13 +130,23 @@ function App() {
       }
     })
   }
+
+  const copyToClipboard = () => {
+    var copyText = idDisplay;
+
+    navigator.clipboard.writeText(copyText);
+  }
   
 
   return (
     <div className="App">
       <div className='head'>
         <h1>Task Master</h1>
-        <h2>{idDisplay?<h2>URL: {idDisplay}</h2>:null}</h2>
+        {idDisplay?<div className='urlLinkContainer'>
+          <h6>URL: {idDisplay}</h6>
+          <button onClick={copyToClipboard}>Copy URL to Clipboard</button>
+          </div>
+          :null}
         <CreateTask
           username={username}
           handleSetUserName={(e)=>{setUsername(e.target.value)}}
