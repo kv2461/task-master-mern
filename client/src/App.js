@@ -134,35 +134,38 @@ function App() {
 
   return (
     <div className="App">
+      <div className='head'>
+        <h1>Task Master</h1>
+        <h2>{idDisplay?<h2>URL: {idDisplay}</h2>:null}</h2>
+        <CreateTask
+          username={username}
+          handleSetUserName={(e)=>{setUsername(e.target.value)}}
+          handleCreateTasks={createTasks}
+        />
+        <LoadTask
+          handleTaskToLoad={(e)=>{setTaskToLoad(e.target.value)}}
+          loadTaskValue = {taskToLoad}
+          handleLoadTask={loadTask}
+          handleUpdateTasks={()=>updateTasks(taskToLoad)}
+          handleDeleteTasks={()=>deleteTasks(taskToLoad)}
+        />
 
-      <h1>Task Master</h1>
-      <h2>{idDisplay?<h2>URL: {idDisplay}</h2>:null}</h2>
-      <CreateTask
-        username={username}
-        handleSetUserName={(e)=>{setUsername(e.target.value)}}
-        handleCreateTasks={createTasks}
-      />
-      <LoadTask
-        handleTaskToLoad={(e)=>{setTaskToLoad(e.target.value)}}
-        loadTaskValue = {taskToLoad}
-        handleLoadTask={loadTask}
-        handleUpdateTasks={()=>updateTasks(taskToLoad)}
-        handleDeleteTasks={()=>deleteTasks(taskToLoad)}
-      />
+        <TaskInput 
+          taskNameValue={taskName}
+          taskInstructionValue = {taskInstructions}
+          handleName={(e)=>{
+            setTaskName(e.target.value)
+          }}
+          handleInstructions={(e)=>{
+            setTaskInstructions(e.target.value)
+          }}
+          handleAddTask = {addTask}
+        />
+      </div>
 
-      <TaskInput 
-        taskNameValue={taskName}
-        taskInstructionValue = {taskInstructions}
-        handleName={(e)=>{
-          setTaskName(e.target.value)
-        }}
-        handleInstructions={(e)=>{
-          setTaskInstructions(e.target.value)
-        }}
-        handleAddTask = {addTask}
-      />
-      
-      {taskElements}
+      <div className='taskListContainer'>
+        {taskElements}
+      </div>
 
     </div>
     

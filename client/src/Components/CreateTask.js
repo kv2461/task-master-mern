@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CreateTask({username, handleSetUserName, handleCreateTasks}) {
     return(
-        <div>
+        <div className='taskForm createTaskContainer'>
         <input
           type='text'
           placeholder='Username'
