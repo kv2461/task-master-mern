@@ -6,7 +6,7 @@ export default function TaskList({task,handleDelete,handleComplete}) {
             <h1 
                 style={task.taskCompleted?{textDecoration:'line-through'}:null}
             >
-                {task.taskName}
+                <a href={`http://www.google.com/search?q=${task.taskName}`} target='_blank'>{task.taskName}</a>
             </h1>
             <h2 
                 style={task.taskCompleted?{textDecoration:'line-through'}:null}
