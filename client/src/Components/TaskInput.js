@@ -17,7 +17,7 @@ export default function TaskInput({handleAddTask,handleName,handleInstructions,t
             onChange={handleInstructions}
           />
         </div>
-      <button type='button' onClick={handleAddTask}>Add</button>
+      <button type='button' onClick={handleAddTask}>Add Task</button>
       </div>
     )
 }

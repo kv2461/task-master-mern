@@ -9,7 +9,7 @@ export default function CreateTask({username, handleSetUserName, handleCreateTas
           value={username}
           onChange={handleSetUserName}
         />
-        <button type='button' onClick={handleCreateTasks}>Create Tasklist</button>
+        <button type='button' onClick={handleCreateTasks}>Create Task List</button>
       </div>
     )
 }
