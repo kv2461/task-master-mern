@@ -7,6 +7,7 @@ import TaskList from './Components/TaskList';
 import TaskInput from './Components/TaskInput';
 import LoadTask from './Components/LoadTask';
 import CreateTask from "./Components/CreateTask";
+// import Copyright from './Components/Copyright';
 
 function App() {
   const [taskList,setTaskList] = useState([]);
@@ -270,7 +271,7 @@ function App() {
       <div className='taskListContainer'>
         {taskElements}
       </div>
-
+      {/* <Copyright /> */}
     </div>
     
   );
